@@ -16,7 +16,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname));
 
 // ========================
 // EMAIL SETUP (UNCHANGED)
@@ -142,9 +142,11 @@ connectDB()
     .then(() => {
         console.log("MongoDB Connected ✔");
 
-        app.listen(3000, () => {
-            console.log("Server running on http://localhost:3000");
-        });
+       const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
     })
     .catch((err) => {
